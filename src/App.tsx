@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import profilePhoto from './assets/prachalPhoto.jpeg'
 import './App.css'
 
 const achievements = [
@@ -8,21 +10,28 @@ const achievements = [
 
 const skills = [
   {
-    title: 'Frontend',
-    items: ['React.js', 'TypeScript', 'Redux Toolkit', 'Material UI', 'Bootstrap'],
+    title: 'Languages',
+    items: ['JavaScript', 'TypeScript', 'Python', 'Java (DSA)', 'SQL'],
   },
   {
-    title: 'Architecture',
-    items: ['Micro-Frontends', 'React Router v6', 'Storybook', 'WCAG', 'JAWS'],
+    title: 'Frameworks & Libraries',
+    items: ['React JS', 'Redux Toolkit', 'Redux', 'FastAPI', 'Formik', 'Bootstrap', 'Material UI'],
   },
   {
-    title: 'Backend & Data',
-    items: ['SQL', 'MySQL', 'Redis', 'FastAPI', 'JWT Integration'],
+    title: 'Databases',
+    items: ['MySQL', 'Redis'],
   },
   {
-    title: 'Tools',
-    items: ['Git', 'GitHub', 'Jira', 'AWS Console', 'Postman', 'Cursor'],
+    title: 'Tools & Platforms',
+    items: ['AWS Console', 'Git', 'GitHub', 'Storybook', 'Postman', 'Jira', 'Cursor'],
   },
+]
+
+const stats = [
+  { value: '3+', label: 'Years Experience' },
+  { value: '10k+', label: 'Lines Migrated' },
+  { value: '50%', label: 'Perf. Boost' },
+  { value: '40%', label: 'Faster Delivery' },
 ]
 
 const experiences = [
@@ -81,102 +90,113 @@ const projects = [
 ]
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const closeMenu = () => setIsMenuOpen(false)
+
   return (
     <main>
       <nav className="nav" aria-label="Primary navigation">
         <a href="#home" className="brand" aria-label="Prachal Agrawal home">
-          PA
+          pa<span>.</span>
         </a>
-        <div className="nav-links">
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </div>
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((current) => !current)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </nav>
+
+      <div className={`menu-overlay ${isMenuOpen ? 'menu-overlay-open' : ''}`}>
+        <a href="#about" onClick={closeMenu}>
+          About
+        </a>
+        <a href="#skills" onClick={closeMenu}>
+          Skills
+        </a>
+        <a href="#experience" onClick={closeMenu}>
+          Experience
+        </a>
+        <a href="#projects" onClick={closeMenu}>
+          Projects
+        </a>
+        <a href="#contact" onClick={closeMenu}>
+          Contact
+        </a>
+      </div>
 
       <section className="hero-section" id="home">
         <div className="hero-content">
-          <p className="eyebrow">Frontend Engineer - React.js, TypeScript, Micro-Frontends</p>
-          <h1>Building scalable, accessible product workflows for modern web teams.</h1>
+          <p className="eyebrow">Open to new opportunities</p>
+          <h1>
+            Prachal
+            <span>Agrawal</span>
+          </h1>
+          <p className="role-text">Software Development Engineer - 2</p>
           <p className="hero-copy">
-            I am Prachal Agrawal, a Gurugram-based frontend engineer focused on
-            production-grade React applications, maintainable architecture, and high-performing
-            user experiences.
+            Frontend Engineer with 3+ years building scalable, production-grade web applications.
+            Currently <strong>SDE-2 at Zenarate</strong>, leading the Conversation Builder platform
+            and owning architecture across frontend and backend for complex conversational workflows.
           </p>
           <div className="hero-actions">
             <a className="primary-button" href="mailto:agrawalprachal@gmail.com">
-              Get in touch
+              Get In Touch
             </a>
             <a
               className="secondary-button"
-              href="https://github.com/prachal-agrawal"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#projects"
             >
-              View GitHub
+              View My Work
             </a>
           </div>
         </div>
 
-        <aside className="profile-card" aria-label="Profile highlights">
-          <div className="avatar" aria-hidden="true">
-            PA
-          </div>
-          <h2>Prachal Agrawal</h2>
-          <p>Software Development Engineer at Zenarate</p>
-          <div className="profile-links">
-            <a href="mailto:agrawalprachal@gmail.com">Email</a>
-            <a
-              href="https://www.linkedin.com/in/prachal-agrawal"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/prachal-agrawal"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-          </div>
-        </aside>
+        <div className="hero-portrait" aria-label="Profile photo">
+          <img src={profilePhoto} alt="Prachal Agrawal" />
+          <div className="portrait-glow" aria-hidden="true" />
+        </div>
       </section>
 
       <section className="stats" aria-label="Professional highlights">
-        <article>
-          <strong>10,000+</strong>
-          <span>legacy PHP lines migrated to React</span>
-        </article>
-        <article>
-          <strong>50%</strong>
-          <span>performance improvement in React Workbench</span>
-        </article>
-        <article>
-          <strong>15+</strong>
-          <span>micro-components built for Storybook</span>
-        </article>
+        {stats.map((stat) => (
+          <article key={stat.label}>
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+          </article>
+        ))}
       </section>
 
-      <section className="section-grid">
+      <section className="about-section" id="about">
         <div>
-          <p className="section-label">Achievements</p>
-          <h2>Recognized for ownership, impact, and consistency.</h2>
+          <p className="section-label">About</p>
+          <h2>Product-focused engineer building clean, scalable React systems.</h2>
         </div>
-        <div className="achievement-list">
-          {achievements.map((achievement) => (
-            <article key={achievement} className="achievement-card">
-              {achievement}
-            </article>
-          ))}
+        <div className="about-card">
+          <p>
+            I specialize in frontend architecture, reusable component systems, accessible
+            workflows, and performance-focused React applications. I enjoy taking complex product
+            flows and turning them into crisp, reliable user experiences.
+          </p>
+          <div className="achievement-list">
+            {achievements.map((achievement) => (
+              <article key={achievement} className="achievement-card">
+                {achievement}
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="section-grid">
+      <section className="section-grid" id="skills">
         <div>
-          <p className="section-label">Skills</p>
-          <h2>Practical tools for building reliable frontend systems.</h2>
+          <p className="section-label">Technical Arsenal</p>
+          <h2>Skills & Tools</h2>
         </div>
         <div className="skills-grid">
           {skills.map((group) => (
@@ -195,7 +215,7 @@ function App() {
       <section className="section-grid" id="experience">
         <div>
           <p className="section-label">Experience</p>
-          <h2>Growing product ownership across engineering roles at Zenarate.</h2>
+          <h2>Engineering ownership at Zenarate.</h2>
         </div>
         <div className="timeline">
           {experiences.map((experience) => (
@@ -220,7 +240,7 @@ function App() {
       <section className="section-grid" id="projects">
         <div>
           <p className="section-label">Projects</p>
-          <h2>Selected work across enterprise learning, SSO, and healthcare flows.</h2>
+          <h2>Selected work across learning, SSO, and healthcare flows.</h2>
         </div>
         <div className="project-grid">
           {projects.map((project) => (
@@ -241,7 +261,7 @@ function App() {
 
       <section className="contact-section" id="contact">
         <p className="section-label">Contact</p>
-        <h2>Let us build something clean, scalable, and useful.</h2>
+        <h2>Let&apos;s build something clean, scalable, and useful.</h2>
         <p>
           Open to frontend engineering opportunities, React architecture work, and impactful
           product teams.
